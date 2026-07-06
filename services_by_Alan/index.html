@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alan Xu — Enterprise Tech Consultant</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #1a0050;
+      --gray-dark: rgba(0,0,0,0.06);
+      --gray-mid: rgba(0,0,0,0.15);
+      --gray-light: #5a4a7a;
+      --white: #1a0050;
+      --accent: #0077cc;
+      --accent-dim: #005fa3;
+      --divider: rgba(100,60,180,0.18);
+      --card-bg: rgba(255,255,255,0.55);
+    }
+
+    body {
+      background: linear-gradient(135deg, #c8f0ff 0%, #e0d0ff 40%, #f0c8ff 70%, #c0e8ff 100%);
+      min-height: 100vh;
+      color: var(--white);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Nav ── */
+    nav {
+      border-bottom: 1px solid var(--divider);
+      padding: 18px 0;
+      background: rgba(255,255,255,0.45);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav .logo {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    nav .lang-switch {
+      font-size: 13px;
+      color: var(--gray-light);
+      cursor: pointer;
+      user-select: none;
+      border: 1px solid var(--gray-mid);
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    nav .lang-switch:hover { color: var(--white); border-color: var(--gray-light); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 80px 0 60px;
+      border-bottom: 1px solid var(--divider);
+    }
+    .hero .eyebrow {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      color: var(--white);
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero .sub {
+      font-size: 19px;
+      color: var(--gray-light);
+      max-width: 580px;
+      line-height: 1.6;
+    }
+
+    /* ── Section titles ── */
+    .section { padding: 60px 0; border-bottom: 1px solid var(--divider); }
+    .section:last-of-type { border-bottom: none; }
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      margin-bottom: 32px;
+    }
+
+    /* ── Cards ── */
+    .cards { display: grid; gap: 16px; }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--divider);
+      border-radius: 14px;
+      padding: 28px 30px;
+    }
+    .card-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(100, 60, 180, 0.10);
+      padding: 3px 9px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+    .card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .card p {
+      font-size: 15px;
+      color: var(--gray-light);
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+    .card p:last-child { margin-bottom: 0; }
+    .price-note {
+      font-size: 13px;
+      color: var(--gray-light);
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--divider);
+    }
+    .price-note strong { color: var(--white); }
+
+    /* ── Why me ── */
+    .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 520px) { .facts { grid-template-columns: 1fr; } }
+    .fact {
+      background: var(--card-bg);
+      border: 1px solid var(--divider);
+      border-radius: 14px;
+      padding: 24px 26px;
+    }
+    .fact-num {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .fact p { font-size: 14px; color: var(--gray-light); line-height: 1.5; }
+
+    /* ── Contact ── */
+    .contact-grid { display: grid; gap: 14px; }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--card-bg);
+      border: 1px solid var(--divider);
+      border-radius: 12px;
+      padding: 18px 22px;
+    }
+    .contact-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(100, 60, 180, 0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .contact-label { font-size: 12px; color: var(--gray-light); margin-bottom: 2px; }
+    .contact-value { font-size: 15px; font-weight: 500; color: var(--white); }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--divider);
+      padding: 28px 0;
+      font-size: 13px;
+      color: var(--gray-light);
+      text-align: center;
+    }
+
+    /* ── Lang toggle ── */
+    [data-lang="zh"] { display: none; }
+    body.zh [data-lang="en"] { display: none; }
+    body.zh [data-lang="zh"] { display: block; }
+    body.zh span[data-lang="zh"] { display: inline; }
+    body.zh span[data-lang="en"] { display: none; }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav>
+  <div class="container">
+    <div class="logo">Alan Xu</div>
+    <div class="lang-switch" onclick="toggleLang()" id="lang-btn">中文</div>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow" data-lang="en">Independent Consultant</div>
+    <div class="eyebrow" data-lang="zh">独立顾问</div>
+
+    <h1 data-lang="en">
+      Enterprise tech expertise.<br>
+      <span>Delivered remotely.</span>
+    </h1>
+    <h1 data-lang="zh">
+      二十年企业级技术经验。<br>
+      <span>远程交付，即刻可用。</span>
+    </h1>
+
+    <p class="sub" data-lang="en">
+      20+ years in enterprise storage, data protection, and AI infrastructure across Greater China. I help overseas vendors write content that actually lands with Chinese buyers — and help organizations deploy private LLMs without wasting money on the wrong hardware.
+    </p>
+    <p class="sub" data-lang="zh">
+      专注存储、数据保护、网络韧性与 AI 基础设施领域超过二十年。帮助境外厂商制作真正打动中国买家的技术材料，也帮企业和个人把私有化大模型部署对、部署好。
+    </p>
+  </div>
+</header>
+
+<!-- ── Services ── -->
+<section class="section">
+  <div class="container">
+    <div class="section-label" data-lang="en">Services</div>
+    <div class="section-label" data-lang="zh">服务项目</div>
+
+    <div class="cards">
+
+      <!-- Service 1 (GTM) -->
+      <div class="card">
+        <div class="card-tag" data-lang="en">Market Entry</div>
+        <div class="card-tag" data-lang="zh">大中华区市场进入</div>
+        <h3 data-lang="en">Greater China GTM Advisory</h3>
+        <h3 data-lang="zh">大中华区 GTM 策略顾问</h3>
+        <p data-lang="en">
+          I've opened markets from scratch for HPE, Commvault, and Zerto in Greater China — built pipelines, closed deals, and navigated the relationship and compliance landscape that trips up most overseas vendors. If you're entering or re-entering the China market, I can compress your learning curve significantly.
+        </p>
+        <p data-lang="zh">
+          曾为 HPE、Commvault、Zerto 在大中华区从零开拓市场：建立销售管道、完成成交、打通本地关系与合规路径。如果你正在进入或重返中国市场，我能帮你大幅缩短摸索周期。
+        </p>
+        <p data-lang="en" style="font-size:14px; color:#636366; margin-top:8px;">
+          Scope: channel &amp; partner strategy · pipeline development · pricing &amp; positioning for Chinese buyers · compliance navigation · bilingual sales collateral review.
+        </p>
+        <p data-lang="zh" style="font-size:14px; color:#636366; margin-top:8px;">
+          服务范围：渠道与合作伙伴策略 · 销售管道搭建 · 针对中国买家的定价与定位 · 合规路径梳理 · 双语销售材料审核。
+        </p>
+        <div class="price-note" data-lang="en">
+          <strong>USD 150 / hour</strong> · Monthly retainer available
+        </div>
+        <div class="price-note" data-lang="zh">
+          <strong>USD 150 / 小时</strong> · 可按月 retainer 合作
+        </div>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="card">
+        <div class="card-tag" data-lang="en">AI Infrastructure</div>
+        <div class="card-tag" data-lang="zh">私有大模型部署</div>
+        <h3 data-lang="en">Private LLM Deployment Consulting</h3>
+        <h3 data-lang="zh">企业 / 个人私有化大模型部署咨询</h3>
+        <p data-lang="en">
+          Running a 70B model locally? Inference is bottlenecked by memory bandwidth, not compute — most people buying hardware don't know this and waste money. I help you choose the right hardware, model, and quantization level for your actual use case.
+        </p>
+        <p data-lang="zh">
+          本地跑大模型，推理瓶颈在显存带宽，不在算力——大多数人买硬件之前不知道这件事。我帮你选对硬件、选对模型、选对量化方案，避免踩坑。
+        </p>
+        <p data-lang="en" style="font-size:14px; color:#636366; margin-top:8px;">
+          Scope: hardware selection &amp; TCO analysis · model/quantization choice · deployment guidance. Suitable for SMEs with data sovereignty requirements and individuals building local AI workstations.
+        </p>
+        <p data-lang="zh" style="font-size:14px; color:#636366; margin-top:8px;">
+          服务范围：硬件选型与 TCO 测算 · 模型与量化方案选择 · 部署指导。适合有数据本地化需求的中小企业，以及搭建本地 AI 工作站的个人用户。
+        </p>
+        <div class="price-note" data-lang="en">
+          <strong>USD 80 / hour</strong> · Fixed project quotes available on request
+        </div>
+        <div class="price-note" data-lang="zh">
+          <strong>USD 80 / 小时</strong> · 固定项目报价可按需沟通（可 RMB 结算）
+        </div>
+      </div>
+
+      <!-- Service 3 Data Management -->
+      <div class="card">
+        <div class="card-tag" data-lang="en">Data Management</div>
+        <div class="card-tag" data-lang="zh">数据管理咨询</div>
+        <h3 data-lang="en">Enterprise Data Management Consulting</h3>
+        <h3 data-lang="zh">企业数据管理咨询</h3>
+        <p data-lang="en">
+          Storage architecture, data lifecycle management, and hybrid/multi-cloud data strategy — grounded in two decades of enterprise deployments across financial services, manufacturing, and public sector in Greater China. I help organizations cut storage costs, reduce complexity, and meet data governance requirements.
+        </p>
+        <p data-lang="zh">
+          存储架构设计、数据生命周期管理、混合云 / 多云数据策略——基于二十年金融、制造、公共部门等大中华区企业级部署经验。帮助企业降低存储成本、化简架构复杂度，同时满足数据治理合规要求。
+        </p>
+        <p data-lang="en" style="font-size:14px; color:#636366; margin-top:8px;">
+          Deliverables: storage TCO analysis · tiering &amp; data lifecycle design · vendor-neutral architecture review · migration planning.
+        </p>
+        <p data-lang="zh" style="font-size:14px; color:#636366; margin-top:8px;">
+          交付物：存储 TCO 分析 · 分层与数据生命周期设计 · 厂商中立架构评审 · 迁移规划。
+        </p>
+        <div class="price-note" data-lang="en">
+          <strong>USD 100 / hour</strong> · Fixed-scope engagements available
+        </div>
+        <div class="price-note" data-lang="zh">
+          <strong>USD 100 / 小时</strong> · 可提供固定范围项目报价（可 RMB 结算）
+        </div>
+      </div>
+
+      <!-- Service 4 Cyber Resilience -->
+      <div class="card">
+        <div class="card-tag" data-lang="en">Cyber Resilience</div>
+        <div class="card-tag" data-lang="zh">网络韧性咨询</div>
+        <h3 data-lang="en">Ransomware Resilience &amp; Data Protection Advisory</h3>
+        <h3 data-lang="zh">勒索软件防护与数据保护架构评审</h3>
+        <p data-lang="en">
+          Hands-on experience with HPE Cyber Resilience Vault, Zerto, and Commvault across enterprise deployments in Greater China. I assess your current backup and DR posture, identify gaps, and deliver a vendor-neutral remediation roadmap — before an incident forces your hand.
+        </p>
+        <p data-lang="zh">
+          深度实操 HPE Cyber Resilience Vault、Zerto、Commvault 等方案，覆盖大中华区多行业企业部署。评估你现有的备份与 DR 态势，识别短板，给出厂商中立的整改路线图——在勒索事件发生之前把漏洞堵上。
+        </p>
+        <p data-lang="en" style="font-size:14px; color:#636366; margin-top:8px;">
+          Deliverables: ransomware readiness assessment · architecture review · RFP &amp; vendor selection support · air-gap / immutable backup design guidance.
+        </p>
+        <p data-lang="zh" style="font-size:14px; color:#636366; margin-top:8px;">
+          交付物：勒索就绪度评估报告 · 架构评审 · RFP 与选型支持 · 气隙 / 不可变备份设计建议。
+        </p>
+        <div class="price-note" data-lang="en">
+          <strong>USD 120 / hour</strong> · Fixed-scope assessments from USD 800
+        </div>
+        <div class="price-note" data-lang="zh">
+          <strong>USD 120 / 小时</strong> · 固定范围评估起价 USD 800（可 RMB 结算）
+        </div>
+      </div>
+
+      <!-- Service 5 (Technical Writing) -->
+      <div class="card">
+        <div class="card-tag" data-lang="en">Technical Content</div>
+        <div class="card-tag" data-lang="zh">英文技术内容</div>
+        <h3 data-lang="en">Technical Writing for Global B2B Tech Vendors</h3>
+        <h3 data-lang="zh">面向全球 B2B 科技厂商的技术写作</h3>
+        <p data-lang="en">
+          I write case studies, solution briefs, white papers, and product blogs for vendors in storage, backup/DR, cybersecurity, and AI infrastructure. The difference: I understand what your buyers actually care about because I sold this stuff to them for two decades.
+        </p>
+        <p data-lang="zh">
+          为存储、备份/DR、网络安全、AI 基础设施领域的全球厂商撰写 case study、解决方案简报、白皮书、产品博客。卖点在于：我知道买家真正在乎什么，因为我卖了二十年。
+        </p>
+        <p data-lang="en" style="font-size:14px; color:#636366; margin-top:8px;">
+          Also available: Chinese localization of existing English materials — not machine translation, but rewriting for how Chinese enterprise buyers think and decide.
+        </p>
+        <p data-lang="zh" style="font-size:14px; color:#636366; margin-top:8px;">
+          同时提供英文材料中文本地化：不是机翻，是按照中国企业买家的决策逻辑重新落地。
+        </p>
+        <div class="price-note" data-lang="en">
+          <strong>From USD 150/piece</strong> for case studies and solution briefs · Retainer pricing available
+        </div>
+        <div class="price-note" data-lang="zh">
+          <strong>Case study / 解决方案简报起价 USD 150/篇</strong> · 可按月 retainer 合作
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Why me ── -->
+<section class="section">
+  <div class="container">
+    <div class="section-label" data-lang="en">Why work with me</div>
+    <div class="section-label" data-lang="zh">为什么找我</div>
+
+    <div class="facts">
+      <div class="fact">
+        <div class="fact-num">20+</div>
+        <p data-lang="en">Years selling enterprise storage, backup, DR &amp; cybersecurity in Greater China</p>
+        <p data-lang="zh">年大中华区企业级存储、备份、DR、网络安全销售经验</p>
+      </div>
+      <div class="fact">
+        <div class="fact-num">70B</div>
+        <p data-lang="en">LLMs running locally — I know exactly where inference breaks down and why</p>
+        <p data-lang="zh">本地运行 70B 大模型——清楚知道推理在哪里卡、为什么卡</p>
+      </div>
+      <div class="fact">
+        <div class="fact-num">EN/ZH</div>
+        <p data-lang="en">Native-level bilingual: I write and think in both, not translate between them</p>
+        <p data-lang="zh">中英双语，写作和思考都是原生双语，而非互译</p>
+      </div>
+      <div class="fact">
+        <div class="fact-num">B2B</div>
+        <p data-lang="en">I understand how enterprise buying decisions are made — the content I write reflects that</p>
+        <p data-lang="zh">深刻理解企业采购决策逻辑，写出的内容真正服务于销售转化</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ── -->
+<section class="section">
+  <div class="container">
+    <div class="section-label" data-lang="en">Get in touch</div>
+    <div class="section-label" data-lang="zh">联系我</div>
+
+    <p style="color: var(--gray-light); font-size:16px; margin-bottom: 28px;" data-lang="en">
+      Describe your project briefly and I'll get back to you within 24 hours. Payment via PayPal or Payoneer (USD). RMB bank transfer available for mainland China clients.
+    </p>
+    <p style="color: var(--gray-light); font-size:16px; margin-bottom: 28px;" data-lang="zh">
+      简单描述你的需求，24 小时内回复。收款方式：PayPal / Payoneer（美元），国内客户支持人民币银行转账。
+    </p>
+
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="contact-icon">✉</div>
+        <div>
+          <div class="contact-label" data-lang="en">Email</div>
+          <div class="contact-label" data-lang="zh">邮件</div>
+          <div class="contact-value"><a href="mailto:alan.xujian@gmail.com">alan.xujian@gmail.com</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">💼</div>
+        <div>
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-value">
+            <span data-lang="en"><a href="https://linkedin.com/in/" target="_blank">linkedin.com/in/alanxu</a> <!-- update with real URL --></span>
+            <span data-lang="zh"><a href="https://linkedin.com/in/" target="_blank">linkedin.com/in/alanxu</a> <!-- 替换为真实链接 --></span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">💳</div>
+        <div>
+          <div class="contact-label" data-lang="en">Payment</div>
+          <div class="contact-label" data-lang="zh">付款方式</div>
+          <div class="contact-value" data-lang="en">PayPal · Payoneer (USD) · CNY bank transfer</div>
+          <div class="contact-value" data-lang="zh">PayPal · Payoneer（美元）· 人民币银行转账</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <span data-lang="en">© 2026 Alan Xu · Independent Consultant · Greater China &amp; Remote</span>
+    <span data-lang="zh">© 2026 Alan Xu · 独立顾问 · 大中华区 · 远程交付</span>
+  </div>
+</footer>
+
+<script>
+  function toggleLang() {
+    const body = document.body;
+    const btn = document.getElementById('lang-btn');
+    if (body.classList.contains('zh')) {
+      body.classList.remove('zh');
+      btn.textContent = '中文';
+    } else {
+      body.classList.add('zh');
+      btn.textContent = 'EN';
+    }
+  }
+</script>
+
+</body>
+</html>
